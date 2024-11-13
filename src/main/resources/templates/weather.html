@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather in <span th:text="${city}"></span></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+        }
+        .weather-container {
+            margin-top: 50px;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #333;
+        }
+        .weather-info, .error-message {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .error-message {
+            color: red;
+        }
+        .city-form input {
+            font-size: 18px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .city-form button {
+            font-size: 18px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-container">
+        <h1>Weather in <span th:text="${city}"></span></h1>
+        
+        <!-- City Input Form -->
+        <div class="city-form">
+            <form action="/weather" method="get">
+                <input type="text" name="city" placeholder="Enter city name" required>
+                <button type="submit">Get Weather</button>
+            </form>
+        </div>
+
+        <!-- Error Message Section -->
+        <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Weather Data Section -->
+        <div th:unless="${error}" class="weather-info">
+            <p><strong>Temperature:</strong> <span th:text="${temperature}"></span>°C</p>
+            <p><strong>Description:</strong> <span th:text="${description}"></span></p>
+            <img th:src="${iconUrl}" alt="${description}" />
+        </div>
+    </div>
+</body>
+</html>
